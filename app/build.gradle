@@ -51,4 +51,5 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     implementation project(path: ':jokestore')
+    implementation project(path: ':jokeactivity')
 }

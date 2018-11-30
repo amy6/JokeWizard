@@ -20,8 +20,10 @@ apply plugin: 'war'
 apply plugin: 'com.google.cloud.tools.appengine'
 apply plugin: 'com.google.cloud.tools.endpoints-framework-server'
 
-sourceCompatibility = JavaVersion.VERSION_1_7
-targetCompatibility = JavaVersion.VERSION_1_7
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+appengine.tools.cloudSdkHome="/home/mahima/google-cloud-sdk-225.0.0-linux-x86_64/google-cloud-sdk/"
 
 dependencies {
     implementation 'com.google.endpoints:endpoints-framework:2.0.9'

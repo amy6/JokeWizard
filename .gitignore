@@ -7,3 +7,6 @@
 /captures
 *.iml
 .idea/
+/backend/build/
+/jokeactivity/build
+/jokestore/build

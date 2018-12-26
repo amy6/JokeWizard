@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -17,8 +18,9 @@ import com.google.android.gms.ads.MobileAds;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment implements View.OnClickListener {
+public class MainActivityFragment extends Fragment implements View.OnClickListener, ProgressChangeListener {
 
+    private ProgressBar progressBar;
     private InterstitialAd interstitialAd;
 
     public MainActivityFragment() {
@@ -31,6 +33,8 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
         Button jokeButton = root.findViewById(R.id.joke_button);
         jokeButton.setOnClickListener(this);
+
+        progressBar = root.findViewById(R.id.progress_bar);
 
         MobileAds.initialize(getContext(), "ca-app-pub-3940256099942544~3347511713");
 
@@ -57,15 +61,21 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        onProgressChanged(true);
         if (interstitialAd.isLoaded()) {
             interstitialAd.show();
             interstitialAd.setAdListener(new AdListener() {
                 @Override
                 public void onAdClosed() {
                     interstitialAd.loadAd(new AdRequest.Builder().build());
-                    new EndpointsAsyncTask().execute(getContext());
+                    new EndpointsAsyncTask(MainActivityFragment.this).execute(getContext());
                 }
             });
         }
+    }
+
+    @Override
+    public void onProgressChanged(boolean complete) {
+        progressBar.setVisibility(complete ? View.VISIBLE : View.GONE);
     }
 }

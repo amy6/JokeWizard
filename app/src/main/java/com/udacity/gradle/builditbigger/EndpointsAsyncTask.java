@@ -3,6 +3,7 @@ package com.udacity.gradle.builditbigger;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import com.example.jokeactivity.JokeActivity;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -17,6 +18,16 @@ import java.lang.ref.WeakReference;
 public class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
     private static MyApi myApiService = null;
     private WeakReference<Context> context;
+    private ProgressChangeListener progressChangeListener;
+
+    public EndpointsAsyncTask(ProgressChangeListener progressChangeListener) {
+        this.progressChangeListener = progressChangeListener;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
 
     @Override
     protected String doInBackground(Context... params) {
@@ -48,7 +59,8 @@ public class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(final String result) {
+        progressChangeListener.onProgressChanged(false);
         Intent intent = new Intent(context.get(), JokeActivity.class);
         intent.putExtra("joke", result);
         context.get().startActivity(intent);

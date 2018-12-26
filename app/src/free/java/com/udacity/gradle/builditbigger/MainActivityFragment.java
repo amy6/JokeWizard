@@ -7,16 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
-import com.udacity.gradle.builditbigger.R;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment implements View.OnClickListener {
+
+    private InterstitialAd interstitialAd;
 
     public MainActivityFragment() {
     }
@@ -31,11 +34,14 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
         MobileAds.initialize(getContext(), "ca-app-pub-3940256099942544~3347511713");
 
-        initAdView(root);
+        interstitialAd = new InterstitialAd(getContext());
+        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+        initAds(root);
         return root;
     }
 
-    private void initAdView(View root) {
+    private void initAds(View root) {
         AdView mAdView = root.findViewById(R.id.adView);
         // Create an ad request. Check logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
@@ -44,11 +50,22 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mAdView.loadAd(adRequest);
+
+        interstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
 
     @Override
     public void onClick(View v) {
-        new EndpointsAsyncTask().execute(getContext());
+        if (interstitialAd.isLoaded()) {
+            interstitialAd.show();
+            interstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    interstitialAd.loadAd(new AdRequest.Builder().build());
+                    new EndpointsAsyncTask().execute(getContext());
+                }
+            });
+        }
     }
 }

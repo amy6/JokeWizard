@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class JokeActivity extends AppCompatActivity {
 
@@ -23,7 +24,11 @@ public class JokeActivity extends AppCompatActivity {
             if (getIntent().hasExtra("joke")) {
                 joke = getIntent().getStringExtra("joke");
                 if (!TextUtils.isEmpty(joke)) {
+                    jokeTextView.setTextColor(getResources().getColor(android.R.color.black));
                     jokeTextView.setText(joke);
+                } else {
+                    jokeTextView.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                    jokeTextView.setText(R.string.error);
                 }
             }
         }

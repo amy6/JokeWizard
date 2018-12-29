@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 
 public class JokeApiClient {
 
-    private static final String BASE_URL = "https://geek-jokes.sameerkumar.website/api";
+    private static final String BASE_URL = "https://official-joke-api.herokuapp.com/";
     private static Retrofit retrofit;
 
     //OkHttpClient to enable logging
@@ -44,6 +44,6 @@ public class JokeApiClient {
 
 interface JokeApiService {
 
-    @GET
-    Call<String> getJoke();
+    @GET("random_joke")
+    Call<Joke> getJoke();
 }

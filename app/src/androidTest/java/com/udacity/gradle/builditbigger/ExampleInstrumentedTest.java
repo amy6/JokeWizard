@@ -29,6 +29,7 @@ public class ExampleInstrumentedTest {
             @Override
             protected void onPostExecute(String result) {
                 assertNotNull(result);
+                assertTrue(result.length() > 0);
                 latch.countDown();
             }
         };

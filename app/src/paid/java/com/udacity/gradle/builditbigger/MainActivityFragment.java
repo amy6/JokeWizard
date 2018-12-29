@@ -1,6 +1,5 @@
 package com.udacity.gradle.builditbigger;
 
-import android.app.MediaRouteButton;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
-
-import com.udacity.gradle.builditbigger.R;
 
 
 /**
@@ -34,6 +31,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        onProgressChanged(true);
         new EndpointsAsyncTask(this).execute(getContext());
     }
 

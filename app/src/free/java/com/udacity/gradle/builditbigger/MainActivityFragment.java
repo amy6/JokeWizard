@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -61,9 +62,9 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        onProgressChanged(true);
         if (interstitialAd.isLoaded()) {
             interstitialAd.show();
+            onProgressChanged(true);
             interstitialAd.setAdListener(new AdListener() {
                 @Override
                 public void onAdClosed() {
@@ -71,6 +72,8 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                     new EndpointsAsyncTask(MainActivityFragment.this).execute(getContext());
                 }
             });
+        } else {
+            Toast.makeText(getContext(), "What's that?", Toast.LENGTH_SHORT).show();
         }
     }
 

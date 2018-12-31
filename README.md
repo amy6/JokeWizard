@@ -11,3 +11,5 @@ JokeWizard is an app with multiple flavors that uses multiple libraries and Goog
 
 App logo: <a href='https://www.freepik.com/free-photo/adorable-white-bulldog-puppy-portrait_3532493.htm'>Designed by Rawpixel.com</a>
 Background image: <a href='https://www.freepik.com/free-vector/hand-drawn-pug-with-glasses_1356853.htm'>Designed by Freepik</a>
+
+Joke API: https://github.com/15Dkatz/official_joke_api
